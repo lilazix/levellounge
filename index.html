@@ -6,7 +6,8 @@
     <title>Level Lounge — Lounge Bar & Cuisine</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap&font-display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
     <style>
         * {
             margin: 0;
@@ -52,8 +53,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(44, 24, 16, 0.85);
-            backdrop-filter: blur(20px);
+            background: rgba(44, 24, 16, 0.95);
+            /* backdrop-filter убран для ускорения на мобильных */
             border-bottom: 1px solid rgba(201, 169, 98, 0.15);
             transition: background 0.3s;
         }
@@ -83,6 +84,10 @@
         }
         @media(max-width:768px){
             .nav-links { display: none; }
+        }
+        @media(prefers-reduced-motion: reduce), (max-width: 768px) {
+            .hero::before { animation: none; opacity: 0.5; }
+            .fade-in { opacity: 1; transform: none; transition: none; }
         }
 
         /* HERO */
@@ -158,7 +163,6 @@
             display: inline-block;
             padding: 1rem 3rem;
             background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(10px);
             border: 1px solid rgba(201,169,98,0.4);
             color: var(--gold-accent);
             text-decoration: none;
@@ -455,24 +459,23 @@
         </div>
 
         <div class="menu-categories">
-            <button class="category-btn active" data-cat="Всё">Всё</button>
-            <button class="category-btn" data-cat="Завтраки">Завтраки</button>
-            <button class="category-btn" data-cat="Салаты">Салаты</button>
-            <button class="category-btn" data-cat="Супы">Супы</button>
-            <button class="category-btn" data-cat="Горячие блюда">Горячие блюда</button>
-            <button class="category-btn" data-cat="Паста">Паста</button>
-            <button class="category-btn" data-cat="Стейки">Стейки</button>
-            <button class="category-btn" data-cat="Пицца">Пицца</button>
-            <button class="category-btn" data-cat="Закуски">Закуски</button>
-            <button class="category-btn" data-cat="Фастфуд">Фастфуд</button>
-            <button class="category-btn" data-cat="На компанию">На компанию</button>
-            <button class="category-btn" data-cat="Напитки">Напитки</button>
+            <button class="category-btn active" data-cat="завтраки">Завтраки</button>
+            <button class="category-btn" data-cat="салаты">Салаты</button>
+            <button class="category-btn" data-cat="супы">Супы</button>
+            <button class="category-btn" data-cat="горячие">Горячие блюда</button>
+            <button class="category-btn" data-cat="паста">Паста</button>
+            <button class="category-btn" data-cat="стейки">Стейки</button>
+            <button class="category-btn" data-cat="пицца">Пицца</button>
+            <button class="category-btn" data-cat="закуски">Закуски</button>
+            <button class="category-btn" data-cat="фастфуд">Фастфуд</button>
+            <button class="category-btn" data-cat="компания">На компанию</button>
+            <button class="category-btn" data-cat="напитки">Напитки</button>
         </div>
 
         <div id="menuContent">
 
             <!-- ЗАВТРАКИ -->
-            <div class="menu-block" data-section="Завтраки">
+            <div class="menu-block" data-section="завтраки">
                 <div class="menu-block-title">Завтраки</div>
                 <div class="menu-list menu-cols">
                     <div class="menu-item">
@@ -532,7 +535,7 @@
             </div>
 
             <!-- САЛАТЫ -->
-            <div class="menu-block" data-section="Салаты">
+            <div class="menu-block" data-section="салаты">
                 <div class="menu-block-title">Салаты</div>
                 <div class="menu-list menu-cols">
                     <div class="menu-item">
@@ -575,7 +578,7 @@
             </div>
 
             <!-- СУПЫ -->
-            <div class="menu-block" data-section="Супы">
+            <div class="menu-block" data-section="супы">
                 <div class="menu-block-title">Супы</div>
                 <div class="menu-list menu-cols">
                     <div class="menu-item">
@@ -618,7 +621,7 @@
             </div>
 
             <!-- ГОРЯЧИЕ БЛЮДА -->
-            <div class="menu-block" data-section="Горячие блюда">
+            <div class="menu-block" data-section="горячие">
                 <div class="menu-block-title">Горячие блюда</div>
                 <div class="menu-list menu-cols">
                     <div class="menu-item">
@@ -708,7 +711,7 @@
             </div>
 
             <!-- ПАСТА -->
-            <div class="menu-block" data-section="Паста">
+            <div class="menu-block" data-section="паста">
                 <div class="menu-block-title">Паста</div>
                 <div class="menu-list menu-cols">
                     <div class="menu-item">
@@ -739,7 +742,7 @@
             </div>
 
             <!-- СТЕЙКИ -->
-            <div class="menu-block" data-section="Стейки">
+            <div class="menu-block" data-section="стейки">
                 <div class="menu-block-title">Стейки</div>
                 <div class="menu-list menu-cols">
                     <div class="menu-item">
@@ -770,7 +773,7 @@
             </div>
 
             <!-- ПИЦЦА -->
-            <div class="menu-block" data-section="Пицца">
+            <div class="menu-block" data-section="пицца">
                 <div class="menu-block-title">Пицца</div>
                 <div class="menu-list menu-cols">
                     <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Маргарита</div></div><div class="menu-item-price">3 190 ₸</div></div>
@@ -785,7 +788,7 @@
             </div>
 
             <!-- ЗАКУСКИ -->
-            <div class="menu-block" data-section="Закуски">
+            <div class="menu-block" data-section="закуски">
                 <div class="menu-block-title">Закуски</div>
                 <div class="menu-list menu-cols">
                     <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Сырные палочки</div></div><div class="menu-item-price">2 790 ₸</div></div>
@@ -801,7 +804,7 @@
             </div>
 
             <!-- ФАСТФУД -->
-            <div class="menu-block" data-section="Фастфуд">
+            <div class="menu-block" data-section="фастфуд">
                 <div class="menu-block-title">Фастфуд</div>
                 <div class="menu-list menu-cols">
                     <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Бургер с говядиной</div></div><div class="menu-item-price">3 390 ₸</div></div>
@@ -812,7 +815,7 @@
             </div>
 
             <!-- БЛЮДА НА КОМПАНИЮ -->
-            <div class="menu-block" data-section="На компанию">
+            <div class="menu-block" data-section="компания">
                 <div class="menu-block-title">Блюда на компанию</div>
                 <div class="menu-list">
                     <div class="menu-item company">
@@ -835,7 +838,7 @@
             </div>
 
             <!-- НАПИТКИ (BAR MENU) -->
-            <div class="menu-block" data-section="Напитки">
+            <div class="menu-block" data-section="напитки">
                 <div class="menu-block-title">Кофе</div>
                 <div class="menu-list menu-cols">
                     <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Эспрессо</div></div><div class="menu-item-price">1 090 ₸</div></div>
@@ -996,28 +999,37 @@
     </footer>
 
     <script>
-        // Fade in on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-        }, { threshold: 0.08, rootMargin: '0px 0px -80px 0px' });
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        // Fade in on scroll — только на десктопе
+        const isMobile = window.innerWidth <= 768;
+        if (!isMobile) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+            }, { threshold: 0.08, rootMargin: '0px 0px -80px 0px' });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        } else {
+            // На мобильных просто показываем всё без анимации
+            document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+        }
 
         // Category filter
         const catBtns = document.querySelectorAll('.category-btn');
         const sections = document.querySelectorAll('#menuContent .menu-block');
 
+        function showCategory(cat) {
+            sections.forEach(sec => {
+                sec.style.display = (cat === 'all' || sec.dataset.section === cat) ? '' : 'none';
+            });
+        }
+
+        // При загрузке — показываем только активную категорию
+        const activeCat = document.querySelector('.category-btn.active')?.dataset.cat || 'завтраки';
+        showCategory(activeCat);
+
         catBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 catBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                const cat = btn.dataset.cat;
-                sections.forEach(sec => {
-                    if (cat === 'all' || sec.dataset.section === cat) {
-                        sec.style.display = '';
-                    } else {
-                        sec.style.display = 'none';
-                    }
-                });
+                showCategory(btn.dataset.cat);
             });
         });
 
