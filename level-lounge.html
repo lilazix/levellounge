@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Lounge — Lounge Bar & Cuisine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --coffee-brown: #2C1810;
+            --deep-green: #1B3A2F;
+            --cream: #F5F1E8;
+            --milk-white: #FEFCF7;
+            --gold-accent: #C9A962;
+            --soft-shadow: rgba(44, 24, 16, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--coffee-brown);
+            color: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(44, 24, 16, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201, 169, 98, 0.15);
+            transition: background 0.3s;
+        }
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold-accent);
+            letter-spacing: 2px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            transition: opacity 0.2s, color 0.2s;
+        }
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--gold-accent);
+        }
+        @media(max-width:768px){
+            .nav-links { display: none; }
+        }
+
+        /* HERO */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--coffee-brown) 0%, #3A2318 100%);
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(201,169,98,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(27,58,47,0.1) 0%, transparent 50%);
+            animation: ambientGlow 12s ease-in-out infinite;
+        }
+        @keyframes ambientGlow {
+            0%,100%{opacity:0.4} 50%{opacity:0.7}
+        }
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            padding: 2rem;
+            animation: fadeInHero 1.2s ease-out;
+        }
+        @keyframes fadeInHero {
+            from{opacity:0;transform:translateY(30px)}
+            to{opacity:1;transform:translateY(0)}
+        }
+        .hero-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            font-weight: 600;
+            color: var(--cream);
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: var(--gold-accent);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            animation: fadeInHero 1.2s ease-out 0.3s backwards;
+        }
+        .hero-divider {
+            width: 80px;
+            height: 1px;
+            background: var(--gold-accent);
+            margin: 0 auto 1.5rem;
+            opacity: 0.5;
+            animation: fadeInHero 1.2s ease-out 0.5s backwards;
+        }
+        .hero-tagline {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--milk-white);
+            margin-bottom: 3rem;
+            opacity: 0.85;
+            animation: fadeInHero 1.2s ease-out 0.6s backwards;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(201,169,98,0.4);
+            color: var(--gold-accent);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            animation: fadeInHero 1.2s ease-out 0.9s backwards;
+        }
+        .cta-button:hover {
+            background: rgba(201,169,98,0.2);
+            border-color: var(--gold-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201,169,98,0.2);
+        }
+        .scroll-hint {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(245,241,232,0.4);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%,100%{transform:translateX(-50%) translateY(0)}
+            40%{transform:translateX(-50%) translateY(-10px)}
+            60%{transform:translateX(-50%) translateY(-5px)}
+        }
+
+        /* MENU SECTION */
+        .menu-section {
+            padding: 6rem 5% 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-label {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold-accent);
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 500;
+            color: var(--cream);
+            margin-bottom: 0.8rem;
+        }
+        .section-subtitle {
+            font-size: 1rem;
+            color: rgba(245,241,232,0.6);
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        /* CATEGORY TABS */
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 0.7rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+        .category-btn {
+            padding: 0.6rem 1.4rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(201,169,98,0.2);
+            color: rgba(245,241,232,0.7);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 30px;
+        }
+        .category-btn:hover,
+        .category-btn.active {
+            background: rgba(201,169,98,0.15);
+            border-color: var(--gold-accent);
+            color: var(--gold-accent);
+        }
+
+        /* MENU TABLE STYLE */
+        .menu-block {
+            margin-bottom: 3rem;
+        }
+        .menu-block-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold-accent);
+            border-bottom: 1px solid rgba(201,169,98,0.25);
+            padding-bottom: 0.6rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0.65rem 0.8rem;
+            border-radius: 8px;
+            transition: background 0.2s;
+            gap: 1rem;
+        }
+        .menu-item:hover {
+            background: rgba(201,169,98,0.06);
+        }
+        .menu-item-left {
+            flex: 1;
+        }
+        .menu-item-name {
+            font-size: 0.97rem;
+            color: var(--cream);
+            font-weight: 500;
+        }
+        .menu-item-desc {
+            font-size: 0.8rem;
+            color: rgba(245,241,232,0.5);
+            margin-top: 0.1rem;
+            line-height: 1.4;
+        }
+        .menu-item-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--gold-accent);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .menu-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 3rem;
+        }
+        @media(max-width:768px){
+            .menu-cols { grid-template-columns: 1fr; }
+        }
+
+        /* Company dishes badge */
+        .menu-item.company {
+            background: rgba(201,169,98,0.07);
+            border: 1px solid rgba(201,169,98,0.15);
+            border-radius: 10px;
+        }
+        .menu-item.company:hover {
+            background: rgba(201,169,98,0.12);
+        }
+
+        /* ABOUT */
+        .about {
+            background: var(--deep-green);
+            border-radius: 30px;
+            margin: 4rem 5%;
+            padding: 5rem;
+        }
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: var(--cream);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .feature {
+            text-align: center;
+            padding: 1.8rem 1.2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(201,169,98,0.2);
+            transition: all 0.3s ease;
+        }
+        .feature:hover { transform: translateY(-5px); }
+        .feature-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+        .feature-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--gold-accent);
+            margin-bottom: 0.4rem;
+        }
+        .feature-text { font-size: 0.85rem; color: rgba(245,241,232,0.65); }
+
+        /* CONTACT */
+        .contact-section {
+            padding: 5rem 5%;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+        .contact-item {
+            padding: 1.4rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(201,169,98,0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        .contact-item:hover { background: rgba(255,255,255,0.07); border-color: var(--gold-accent); }
+        .contact-label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-accent); margin-bottom: 0.4rem; }
+        .contact-value { font-size: 1.05rem; color: var(--cream); }
+        .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2.5rem; flex-wrap: wrap; }
+        .social-btn {
+            padding: 0.9rem 2.2rem;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,169,98,0.3);
+            color: var(--gold-accent);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover { background: rgba(201,169,98,0.18); transform: translateY(-3px); }
+
+        /* FOOTER */
+        footer {
+            background: #1A120C;
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(201,169,98,0.1);
+        }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold-accent); margin-bottom: 0.8rem; }
+        .footer-text { color: rgba(245,241,232,0.4); font-size: 0.85rem; }
+
+        ::selection { background: var(--gold-accent); color: var(--coffee-brown); }
+
+        @media(max-width:768px){
+            .about { padding: 3rem 1.5rem; margin: 3rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-logo">LEVEL LOUNGE</div>
+        <ul class="nav-links">
+            <li><a href="#menu">Меню</a></li>
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#contact">Контакты</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-logo">LEVEL LOUNGE</h1>
+            <p class="hero-subtitle">Lounge Bar & Cuisine · Алматы</p>
+            <div class="hero-divider"></div>
+            <p class="hero-tagline">Где каждый момент — на высшем уровне</p>
+            <a href="#menu" class="cta-button">Смотреть меню</a>
+        </div>
+        <div class="scroll-hint">Scroll ↓</div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <div class="menu-section fade-in" id="menu">
+        <div class="section-header">
+            <div class="section-label">Level Lounge</div>
+            <h2 class="section-title">Наше меню</h2>
+            <p class="section-subtitle">Кухня, напитки и атмосфера — всё на высшем уровне</p>
+        </div>
+
+        <div class="menu-categories">
+            <button class="category-btn active" data-cat="all">Всё</button>
+            <button class="category-btn" data-cat="завтраки">Завтраки</button>
+            <button class="category-btn" data-cat="салаты">Салаты</button>
+            <button class="category-btn" data-cat="супы">Супы</button>
+            <button class="category-btn" data-cat="горячие">Горячие блюда</button>
+            <button class="category-btn" data-cat="паста">Паста</button>
+            <button class="category-btn" data-cat="стейки">Стейки</button>
+            <button class="category-btn" data-cat="пицца">Пицца</button>
+            <button class="category-btn" data-cat="закуски">Закуски</button>
+            <button class="category-btn" data-cat="фастфуд">Фастфуд</button>
+            <button class="category-btn" data-cat="компания">На компанию</button>
+            <button class="category-btn" data-cat="напитки">Напитки</button>
+        </div>
+
+        <div id="menuContent">
+
+            <!-- ЗАВТРАКИ -->
+            <div class="menu-block" data-section="завтраки">
+                <div class="menu-block-title">Завтраки</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item">
+                        <div class="menu-item-left">
+                            <div class="menu-item-name">Английский завтрак</div>
+                            <div class="menu-item-desc">охотничьи сосиски, глазунья из 2-х яиц, молодой картофель, микс салата, соус барбекю, багет</div>
+                        </div>
+                        <div class="menu-item-price">2 590 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left">
+                            <div class="menu-item-name">Деревенский завтрак</div>
+                            <div class="menu-item-desc">охотничьи сосиски, глазунья из 2-х яиц, молодой картофель, багет, масло сливочное, рукола</div>
+                        </div>
+                        <div class="menu-item-price">2 590 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left">
+                            <div class="menu-item-name">Скрэмбл с лососем</div>
+                            <div class="menu-item-desc">лосось, скрэмбл, микс салата, соус песто</div>
+                        </div>
+                        <div class="menu-item-price">2 890 ₸</div>
+                    </div>
+                </div>
+
+                <div class="menu-block-title" style="margin-top:2rem;">Сладкие завтраки</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Каша на выбор</div><div class="menu-item-desc">рисовая / манная / овсяная / пшенная</div></div>
+                        <div class="menu-item-price">1 490 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Блины классические</div></div>
+                        <div class="menu-item-price">1 590 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Блины с нутеллой</div></div>
+                        <div class="menu-item-price">1 790 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Блины с творогом</div></div>
+                        <div class="menu-item-price">1 790 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Вафли творожные</div></div>
+                        <div class="menu-item-price">2 990 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Сырники классические</div></div>
+                        <div class="menu-item-price">2 790 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Мороженое</div></div>
+                        <div class="menu-item-price">2 300 ₸</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- САЛАТЫ -->
+            <div class="menu-block" data-section="салаты">
+                <div class="menu-block-title">Салаты</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Цезарь с курицей</div></div>
+                        <div class="menu-item-price">3 290 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Цезарь с креветками</div></div>
+                        <div class="menu-item-price">3 690 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Салат свежий</div></div>
+                        <div class="menu-item-price">2 690 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Греческий классический</div></div>
+                        <div class="menu-item-price">2 990 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">С хрустящими баклажанами</div></div>
+                        <div class="menu-item-price">3 290 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Тигровые креветки с соусом песто</div></div>
+                        <div class="menu-item-price">3 590 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Микс-салат с сёмгой</div></div>
+                        <div class="menu-item-price">3 190 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Острый салат с говядиной</div></div>
+                        <div class="menu-item-price">3 390 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Тёплый салат с говядиной</div></div>
+                        <div class="menu-item-price">3 290 ₸</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- СУПЫ -->
+            <div class="menu-block" data-section="супы">
+                <div class="menu-block-title">Супы</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Пельмени с говяжьим бульоном</div></div>
+                        <div class="menu-item-price">2 590 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Суп-лапша с курицей</div></div>
+                        <div class="menu-item-price">2 190 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Рамен с говядиной</div></div>
+                        <div class="menu-item-price">3 890 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Рамен с курицей</div></div>
+                        <div class="menu-item-price">3 590 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Рамен с морепродуктами</div></div>
+                        <div class="menu-item-price">4 290 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Том Ям с морепродуктами</div></div>
+                        <div class="menu-item-price">4 790 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Чечевичный крем-суп</div></div>
+                        <div class="menu-item-price">2 090 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Грибной крем-суп</div></div>
+                        <div class="menu-item-price">2 490 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Казак сорпа</div></div>
+                        <div class="menu-item-price">2 690 ₸</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ГОРЯЧИЕ БЛЮДА -->
+            <div class="menu-block" data-section="горячие">
+                <div class="menu-block-title">Горячие блюда</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Куриное филе с овощами</div></div>
+                        <div class="menu-item-price">3 590 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Курица в кисло-сладком соусе</div></div>
+                        <div class="menu-item-price">3 490 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Домашний картофель с говядиной</div></div>
+                        <div class="menu-item-price">3 490 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Бефстроганов с картофельным пюре</div></div>
+                        <div class="menu-item-price">4 190 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Острая говядина с рисом</div></div>
+                        <div class="menu-item-price">3 790 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Говядина с овощами</div></div>
+                        <div class="menu-item-price">3 890 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Куриные котлеты с пюре</div></div>
+                        <div class="menu-item-price">2 990 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Куриный шницель</div></div>
+                        <div class="menu-item-price">3 190 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Курица под сыром</div></div>
+                        <div class="menu-item-price">3 490 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Манты</div></div>
+                        <div class="menu-item-price">2 990 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Хошан</div></div>
+                        <div class="menu-item-price">2 990 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Плов</div></div>
+                        <div class="menu-item-price">3 190 ₸</div>
+                    </div>
+                </div>
+
+                <div class="menu-block-title" style="margin-top:2rem;">Мясо и рыба</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Ассорти колбасок</div><div class="menu-item-desc">индейка / говядина / конина / курица</div></div>
+                        <div class="menu-item-price">3 690 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Форель</div></div>
+                        <div class="menu-item-price">4 590 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Сибас</div></div>
+                        <div class="menu-item-price">4 590 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Дорадо</div></div>
+                        <div class="menu-item-price">4 590 ₸</div>
+                    </div>
+                </div>
+
+                <div class="menu-block-title" style="margin-top:2rem;">Гарниры, хлеб и соусы</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Картофель фри</div></div><div class="menu-item-price">1 290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Картофельные дольки</div></div><div class="menu-item-price">1 290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Картофельное пюре</div></div><div class="menu-item-price">1 190 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Рис</div></div><div class="menu-item-price">990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Рис с овощами</div></div><div class="menu-item-price">1 490 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Хлебная корзина</div></div><div class="menu-item-price">1 690 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Сырный хлеб</div></div><div class="menu-item-price">1 390 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Чесночный хлеб</div></div><div class="menu-item-price">1 290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Баурсаки</div></div><div class="menu-item-price">990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Кетчуп</div></div><div class="menu-item-price">490 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Сладкий соус / Барбекю / Сырный / Тартар / Майонез</div></div><div class="menu-item-price">490 ₸</div></div>
+                </div>
+            </div>
+
+            <!-- ПАСТА -->
+            <div class="menu-block" data-section="паста">
+                <div class="menu-block-title">Паста</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Феттуччине Альфредо</div></div>
+                        <div class="menu-item-price">3 190 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Паста Болоньезе</div></div>
+                        <div class="menu-item-price">3 390 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Феттуччине с тигровыми креветками</div></div>
+                        <div class="menu-item-price">3 790 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Феттуччине с сёмгой</div></div>
+                        <div class="menu-item-price">3 890 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Пенне с курицей и брокколи</div></div>
+                        <div class="menu-item-price">3 390 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Зелёная паста с курицей</div></div>
+                        <div class="menu-item-price">3 390 ₸</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- СТЕЙКИ -->
+            <div class="menu-block" data-section="стейки">
+                <div class="menu-block-title">Стейки</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Рибай</div></div>
+                        <div class="menu-item-price">7 190 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Тибон</div></div>
+                        <div class="menu-item-price">6 790 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Нью-Йорк</div></div>
+                        <div class="menu-item-price">6 990 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Медальоны из телятины</div></div>
+                        <div class="menu-item-price">4 990 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Филе-миньон с картофелем</div></div>
+                        <div class="menu-item-price">4 990 ₸</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-left"><div class="menu-item-name">Стейк из сёмги</div></div>
+                        <div class="menu-item-price">5 990 ₸</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПИЦЦА -->
+            <div class="menu-block" data-section="пицца">
+                <div class="menu-block-title">Пицца</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Маргарита</div></div><div class="menu-item-price">3 190 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Пепперони</div></div><div class="menu-item-price">3 490 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Болоньезе</div></div><div class="menu-item-price">3 590 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Level Pizza</div></div><div class="menu-item-price">3 290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Пицца с сёмгой</div></div><div class="menu-item-price">3 790 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Четыре сезона</div></div><div class="menu-item-price">3 490 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Пицца с курицей и грибами</div></div><div class="menu-item-price">3 490 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Хачапури по-аджарски</div></div><div class="menu-item-price">3 290 ₸</div></div>
+                </div>
+            </div>
+
+            <!-- ЗАКУСКИ -->
+            <div class="menu-block" data-section="закуски">
+                <div class="menu-block-title">Закуски</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Сырные палочки</div></div><div class="menu-item-price">2 790 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Наггетсы</div></div><div class="menu-item-price">2 690 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Хрустящие мини-чебуреки</div></div><div class="menu-item-price">3 190 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Луковые кольца</div></div><div class="menu-item-price">2 290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Крылышки Баффало</div></div><div class="menu-item-price">2 690 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Острые крылышки</div></div><div class="menu-item-price">2 690 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Чесночные гренки</div></div><div class="menu-item-price">1 490 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Жаренный чечил</div></div><div class="menu-item-price">1 790 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Пивные креветки на гриле</div></div><div class="menu-item-price">3 290 ₸</div></div>
+                </div>
+            </div>
+
+            <!-- ФАСТФУД -->
+            <div class="menu-block" data-section="фастфуд">
+                <div class="menu-block-title">Фастфуд</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Бургер с говядиной</div></div><div class="menu-item-price">3 390 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Бургер с курицей</div></div><div class="menu-item-price">3 190 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Кесадилья</div></div><div class="menu-item-price">2 890 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Клаб-сэндвич</div></div><div class="menu-item-price">3 390 ₸</div></div>
+                </div>
+            </div>
+
+            <!-- БЛЮДА НА КОМПАНИЮ -->
+            <div class="menu-block" data-section="компания">
+                <div class="menu-block-title">Блюда на компанию</div>
+                <div class="menu-list">
+                    <div class="menu-item company">
+                        <div class="menu-item-left"><div class="menu-item-name">Бешбармак</div></div>
+                        <div class="menu-item-price">18 900 ₸</div>
+                    </div>
+                    <div class="menu-item company">
+                        <div class="menu-item-left"><div class="menu-item-name">Сырне</div></div>
+                        <div class="menu-item-price">16 000 ₸</div>
+                    </div>
+                    <div class="menu-item company">
+                        <div class="menu-item-left"><div class="menu-item-name">Колбаски микс</div></div>
+                        <div class="menu-item-price">15 900 ₸</div>
+                    </div>
+                    <div class="menu-item company">
+                        <div class="menu-item-left"><div class="menu-item-name">Мясной сет</div></div>
+                        <div class="menu-item-price">28 000 ₸</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- НАПИТКИ (BAR MENU) -->
+            <div class="menu-block" data-section="напитки">
+                <div class="menu-block-title">Кофе</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Эспрессо</div></div><div class="menu-item-price">1 090 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Американо</div></div><div class="menu-item-price">1 190 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Капучино</div></div><div class="menu-item-price">1 490 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Латте</div></div><div class="menu-item-price">1 490 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Раф классический</div></div><div class="menu-item-price">1 690 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Айс черничный пирог</div></div><div class="menu-item-price">2 590 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Лавандовый эспрессо-тоник</div></div><div class="menu-item-price">2 590 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Бамбл с маракуйей и папайей</div></div><div class="menu-item-price">2 590 ₸</div></div>
+                </div>
+
+                <div class="menu-block-title" style="margin-top:2rem;">Чай</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Ассам</div></div><div class="menu-item-price">1 790 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Сенча</div></div><div class="menu-item-price">1 790 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Жасминовый</div></div><div class="menu-item-price">2 290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Молочный улун</div></div><div class="menu-item-price">2 290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Эрл-Грей</div></div><div class="menu-item-price">2 290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Пуэр</div></div><div class="menu-item-price">2 290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Дикая вишня</div></div><div class="menu-item-price">2 290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Альпийский луг</div></div><div class="menu-item-price">2 290 ₸</div></div>
+                </div>
+
+                <div class="menu-block-title" style="margin-top:2rem;">Авторский чай</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Фирменный чай Level</div></div><div class="menu-item-price">2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Чай с тары</div></div><div class="menu-item-price">2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Облепиха–апельсин</div></div><div class="menu-item-price">2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Малина–земляника–чабрец</div></div><div class="menu-item-price">2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Ромашка–ревень</div></div><div class="menu-item-price">2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Карамельное манго</div></div><div class="menu-item-price">2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Жасмин–акация</div></div><div class="menu-item-price">2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Марокканский с шоколадом</div></div><div class="menu-item-price">2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Ташкентский с фейхоа</div></div><div class="menu-item-price">2 990 ₸</div></div>
+                </div>
+
+                <div class="menu-block-title" style="margin-top:2rem;">Лимонад</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Манго–маракуйя</div></div><div class="menu-item-price">1 490 / 2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Киви–яблоко</div></div><div class="menu-item-price">1 490 / 2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Тропический энергетик</div></div><div class="menu-item-price">1 490 / 2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Киви–фейхоа</div></div><div class="menu-item-price">1 490 / 2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Маракуйя–манго–базилик</div></div><div class="menu-item-price">1 490 / 2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Земляника–лемонграсс</div></div><div class="menu-item-price">1 490 / 2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Карамельное печенье</div></div><div class="menu-item-price">1 490 / 2 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Малина–лаванда</div></div><div class="menu-item-price">1 490 / 2 990 ₸</div></div>
+                </div>
+
+                <div class="menu-block-title" style="margin-top:2rem;">Фреш</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Апельсиновый</div></div><div class="menu-item-price">2 790 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Яблочный</div></div><div class="menu-item-price">2 790 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Морковный</div></div><div class="menu-item-price">2 190 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Яблоко–сельдерей</div></div><div class="menu-item-price">2 990 ₸</div></div>
+                </div>
+
+                <div class="menu-block-title" style="margin-top:2rem;">Милкшейк</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Финик с шоколадом</div></div><div class="menu-item-price">2 390 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Банановый</div></div><div class="menu-item-price">2 390 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Попкорн с карамелью</div></div><div class="menu-item-price">2 390 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Сникерсовый</div></div><div class="menu-item-price">2 390 ₸</div></div>
+                </div>
+
+                <div class="menu-block-title" style="margin-top:2rem;">Напитки</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Coca-Cola / Sprite / Fanta</div></div><div class="menu-item-price">1 290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Schweppes</div></div><div class="menu-item-price">1 390 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Red Bull</div></div><div class="menu-item-price">1 790 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Сок</div></div><div class="menu-item-price">1 990 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Borjomi</div></div><div class="menu-item-price">1 390 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Tassay 0,25 л</div></div><div class="menu-item-price">1 190 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Tassay 0,5 л</div></div><div class="menu-item-price">1 590 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Tassay Excellent / Emerald</div></div><div class="menu-item-price">2 690 
+₸</div></div>
+
+                </div>
+ <div class="menu-block-title" style="margin-top:2rem;">Доп-Бар</div>
+                <div class="menu-list menu-cols">
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Лимон</div></div><div class="menu-item-price">490 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Мята</div></div><div class="menu-item-price">290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Молоко</div></div><div class="menu-item-price">390 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Мед</div></div><div class="menu-item-price">290 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Сиропы в ассортименте</div></div><div class="menu-item-price">390 ₸</div></div>
+                    <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Альтернативное молоко</div></div><div class="menu-item-price">790 ₸</div></div>
+                </div>
+
+            </div>
+
+        </div><!-- end menuContent -->
+    </div>
+
+    <!-- ABOUT -->
+    <section class="about fade-in" id="about">
+        <div class="about-content">
+            <div class="section-label">О нас</div>
+            <h2 class="section-title">Level Lounge</h2>
+            <p class="about-text">
+                Level Lounge — это лаунж-бар в самом сердце Алматы, где атмосфера роскоши встречается с настоящей кухней. 
+                Широкое меню авторских блюд, богатый бар и уютное пространство — всё создано для тех, кто ценит качество.
+            </p>
+            <p class="about-text">
+                Здесь проводят вечера компанией, отмечают особые события и просто наслаждаются хорошей едой и напитками. 
+                Каждая деталь — от интерьера до сервиса — на высшем уровне.
+            </p>
+            <div class="about-features">
+                <div class="feature">
+                    <div class="feature-icon"></div>
+                    <h3 class="feature-title">Авторская кухня</h3>
+                    <p class="feature-text">Стейки, пасты, блюда казахской и европейской кухни</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"></div>
+                    <h3 class="feature-title">Бар</h3>
+                    <p class="feature-text">Авторские лимонады, чаи, кофе и напитки на любой вкус</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"></div>
+                    <h3 class="feature-title">Мероприятия</h3>
+                    <p class="feature-text">Идеальное место для компаний и особых событий</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <div class="contact-section fade-in" id="contact">
+        <div class="section-header">
+            <div class="section-label">Контакты</div>
+            <h2 class="section-title">Мы ждём вас</h2>
+        </div>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-label">Адрес</div>
+                <div class="contact-value">г. Алматы, ул. Панфилова 99</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-label">Время работы</div>
+                <div class="contact-value">Ежедневно: 11:00 — 01:00</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-label">Телефон</div>
+                <div class="contact-value">+7 (777) 123-45-67</div>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="#" class="social-btn">📷 Instagram</a>
+            <a href="#" class="social-btn">💬 WhatsApp</a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">LEVEL LOUNGE</div>
+        <p class="footer-text">&copy; 2026 Level Lounge Bar. Все права защищены. · Панфилова 99, Алматы</p>
+    </footer>
+
+    <script>
+        // Fade in on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.08, rootMargin: '0px 0px -80px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Category filter
+        const catBtns = document.querySelectorAll('.category-btn');
+        const sections = document.querySelectorAll('#menuContent .menu-block');
+
+        catBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                catBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const cat = btn.dataset.cat;
+                sections.forEach(sec => {
+                    if (cat === 'all' || sec.dataset.section === cat) {
+                        sec.style.display = '';
+                    } else {
+                        sec.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e){
+                e.preventDefault();
+                const t = document.querySelector(this.getAttribute('href'));
+                if(t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
